@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Authentication from "../components/Authentication";
+import MainPage from "../components/MainPage";
 
 Vue.use(VueRouter)
 
@@ -14,7 +15,7 @@ const routes = [
     path: '/',
     name: 'MainPage',
     meta: {auth: true},
-    // component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    component: MainPage
   }
 ]
 

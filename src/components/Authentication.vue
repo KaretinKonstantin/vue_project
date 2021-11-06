@@ -3,23 +3,35 @@
     <div class="auth-login">
       <div class="auth-login-title">Введите логин:</div>
       <div class="auth-login-email">
-        <input type="email">
+        <input type="email" v-model="login">
       </div>
     </div>
     <div class="auth-pass">
       <div class="auth-pass-title">Введите пароль:</div>
       <div class="auth-pass-password">
-        <input type="password">
+        <input type="password" v-model="password">
       </div>
     </div>
-    <input type="button" value="Авторизоваться" class="authentication-button">
+    <input type="button" value="Авторизоваться" class="authentication-button" @click.stop="authenticate">
 
   </div>
 </template>
 
 <script>
 export default {
-  name: "Authentication"
+  name: "Authentication",
+  data(){
+    return{
+      login: '',
+      password: '',
+    }
+  },
+  methods: {
+    authenticate(){
+      console.log("Отправка запроса на авторизацию");
+      this.$store.dispatch('authenticateUser', {email: this.login, password: this.password});
+    }
+  }
 }
 </script>
 
