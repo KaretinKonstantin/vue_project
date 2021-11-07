@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/login"></router-link>
       <router-link to="/"></router-link>
     </div>
     <router-view/>
@@ -13,21 +12,22 @@ body{
   margin: 0;
 }
 #app {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: block;
   width: 100%;
   height: 100vh;
+  min-width: 800px;
+  min-height: 600px;
+  line-height: 1.5;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  background: #E6E6E6;
 }
 
 #nav {
-  padding: 30px;
+  height: 60px;
+  //padding: 30px;
 
   a {
     font-weight: bold;

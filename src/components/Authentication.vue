@@ -28,7 +28,6 @@ export default {
   },
   methods: {
     authenticate(){
-      console.log("Отправка запроса на авторизацию");
       this.$store.dispatch('authenticateUser', {email: this.login, password: this.password});
     }
   }
@@ -37,6 +36,10 @@ export default {
 
 <style scoped lang="scss">
   .authentication{
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     display: flex;
     flex-direction: column;
     justify-content: center;

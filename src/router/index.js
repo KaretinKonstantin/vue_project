@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Authentication from "../components/Authentication";
 import MainPage from "../components/MainPage";
+import WorkerPage from "../components/WorkerPage";
 
 Vue.use(VueRouter)
 
@@ -16,6 +17,12 @@ const routes = [
     name: 'MainPage',
     meta: {auth: true},
     component: MainPage
+  },
+  {
+    path: '/profile/:id',
+    name: 'WorkerPage',
+    meta: {auth: true},
+    component: WorkerPage,
   }
 ]
 
