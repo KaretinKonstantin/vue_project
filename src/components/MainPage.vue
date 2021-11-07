@@ -1,22 +1,43 @@
 <template>
-  <div class="all-cards-container">
-    <div class="all-cards">
-      <div class="user-card" v-for="(worker, workerIdx) in workersList" v-bind:key="workerIdx">
-        <img :src="worker.image" alt="prof_picture">
-        <div>{{ worker.name }}</div>
-        <div class="user-card-profile" @click.stop="openProfile(worker.id)">Открыть профиль</div>
+  <div>
+    <div class="all-cards-container">
+      <div class="all-cards">
+        <div class="user-card" v-for="(worker, workerIdx) in workersList" v-bind:key="workerIdx">
+          <img :src="worker.image" alt="prof_picture">
+          <div>{{ worker.name }}</div>
+          <div class="user-card-profile" @click.stop="openProfile(worker.id)">Открыть профиль</div>
+        </div>
+      </div>
+    </div>
+    <div class="pagination">
+      <div class="pagination-item" :class="pageNumber === currentPage ? 'active' : ''"
+           v-for="pageNumber in countPages"
+           v-bind:key="'page'+pageNumber"
+           @click.stop="openPage(pageNumber)">
+        <span>{{pageNumber}}</span>
       </div>
     </div>
   </div>
+
 </template>
 
 <script>
 export default {
   name: "MainPage",
+  data(){
+    return{
+      currentPage: 1,
+    }
+  },
   computed: {
     workersList: {
       get(){
         return this.$store.getters.WORKERSLIST;
+      }
+    },
+    countPages: {
+      get(){
+        return this.$store.getters.PAGES;
       }
     }
   },
@@ -24,9 +45,15 @@ export default {
     openProfile(id){
       this.$store.dispatch("openProfile", id);
     },
+    openPage(pageNumber){
+      if (pageNumber !== this.currentPage){
+        this.currentPage = pageNumber;
+        this.$store.dispatch("getUsersCards", pageNumber);
+      }
+    },
   },
   created() {
-    this.$store.dispatch("getUsersCards");
+    this.$store.dispatch("getUsersCards", this.currentPage);
   }
 }
 </script>
@@ -60,5 +87,21 @@ export default {
   img{
     width: 100%;
   }
+}
+
+.pagination{
+  display: flex;
+  justify-content: center;
+  user-select: none;
+  cursor: pointer;
+  &-item{
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.active{
+  background: green;
+  color: white;
 }
 </style>

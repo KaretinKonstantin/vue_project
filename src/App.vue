@@ -27,7 +27,6 @@ body{
 
 #nav {
   height: 60px;
-  //padding: 30px;
 
   a {
     font-weight: bold;

@@ -26,7 +26,8 @@ export default new Vuex.Store({
         position: "",
         adopted_at: "",
       }
-    }
+    },
+    pages: 0,
   },
 
   mutations: {
@@ -46,7 +47,8 @@ export default new Vuex.Store({
      * @param res
      */
     WORKERSLIST(state, res){
-      state.workers = res;
+      state.pages = res.last_page;
+      state.workers = res.data;
     },
 
     /**
@@ -103,9 +105,9 @@ export default new Vuex.Store({
      * Отправка запроса на получение данных о всех сотрудниках
      * @param commit
      */
-    async getUsersCards({commit}){
+    async getUsersCards({commit}, page){
       try {
-        const req = await fetch('http://test.atwinta.ru/api/v1/workers',{
+        const req = await fetch(`http://test.atwinta.ru/api/v1/workers?page=${page}&per_page=12`,{
           method: 'GET',
           mode: 'cors',
           credentials: 'same-origin',
@@ -116,7 +118,7 @@ export default new Vuex.Store({
         });
         const responseData = await req.json();
         if (req.status === 200){
-          commit('WORKERSLIST', responseData.data);
+          commit('WORKERSLIST', responseData);
         }
 
       } catch (e) {
@@ -162,5 +164,6 @@ export default new Vuex.Store({
   getters: {
     WORKERSLIST: state => state.workers,
     USERPROFILE: state => state.chosenUserProfile,
+    PAGES: state => state.pages,
   }
 })
