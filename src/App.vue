@@ -1,11 +1,26 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/"></router-link>
-    </div>
-    <router-view/>
+    <component :is="layout"></component>
   </div>
 </template>
+
+<script>
+
+import EmptyLayout from "./layouts/Empty";
+import MainLayout from "./layouts/Main";
+
+export default {
+  components: {
+    EmptyLayout,
+    MainLayout,
+  },
+  computed: {
+    layout(){
+      return this.$route.meta.layout
+    },
+  }
+}
+</script>
 
 <style lang="scss">
 body{

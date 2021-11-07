@@ -10,23 +10,25 @@ const routes = [
   {
     path: '/login',
     name: 'Authentication',
+    meta: {layout: 'empty-layout'},
     component: Authentication
   },
   {
     path: '/',
     name: 'MainPage',
-    meta: {auth: true},
+    meta: {layout: 'main-layout', auth: true},
     component: MainPage
   },
   {
     path: '/profile/:id',
     name: 'WorkerPage',
-    meta: {auth: true},
+    meta: {layout: 'main-layout', auth: true},
     component: WorkerPage,
   }
 ]
 
 const router = new VueRouter({
+  mode: 'history',
   routes
 })
 
