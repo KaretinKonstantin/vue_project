@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Authentication from "../components/Authentication";
 import MainPage from "../components/MainPage";
 import WorkerPage from "../components/WorkerPage";
+import MyProfile from "../components/MyProfile";
 
 Vue.use(VueRouter)
 
@@ -24,6 +25,12 @@ const routes = [
     name: 'WorkerPage',
     meta: {layout: 'main-layout', auth: true},
     component: WorkerPage,
+  },
+  {
+    path: '/my-profile',
+    name: 'MyProfile',
+    meta: {layout: 'main-layout', auth: true},
+    component: MyProfile,
   }
 ]
 
