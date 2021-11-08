@@ -27,10 +27,23 @@ export default new Vuex.Store({
         adopted_at: "",
       }
     },
+    user: {
+      id: 0,
+      login: "",
+      name: "",
+      email: "",
+      about: "",
+      type: "",
+      github: "",
+      city: "",
+      phone: "",
+      birthday: ""
+    },
     pages: 0,
   },
 
   mutations: {
+
     /**
      * Метод аутентификации пользователя(записывает токен в локалстор) и переход на главную страницу
      * @param state
@@ -38,6 +51,7 @@ export default new Vuex.Store({
      */
     AUTHENTICATEUSER(state, res){
       localStorage.setItem('token', res.token);
+      state.user = res.user;
       router.push({path: '/'});
     },
 
@@ -61,6 +75,15 @@ export default new Vuex.Store({
     },
 
     /**
+     * Метод записи данных текущего пользователя
+     * @param state
+     * @param res
+     */
+    SETCURRENTUSER(state, res){
+      state.user = res;
+    },
+
+    /**
      * Метод открытия карточки сотрудника
      * @param state
      * @param id
@@ -72,6 +95,44 @@ export default new Vuex.Store({
   },
 
   actions: {
+    /**
+     * Отправка запроса на аутентификацию
+     * @param commit
+     * @param user
+     */
+    async saveProfile({commit}, user){
+      try {
+        const req = await fetch('http://test.atwinta.ru/api/v1/user',{
+          method: 'POST',
+          mode: 'cors',
+          credentials: 'same-origin',
+          headers: {
+            "Accept": 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('token'),
+          },
+          body: JSON.stringify({
+            "show_name": user.name,
+            "about": user.about,
+            "github": user.github,
+            "city": user.city,
+            "is_finished": user.is_finished,
+            "telegram": user.telegram,
+            "phone": user.phone,
+            "birthday": user.birthday.toString()
+          })
+        });
+
+        const responseData = await req.json();
+        console.log('responseData', responseData);
+        if (req.status === 200){
+          commit('SETCURRENTUSER', responseData);
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    },
+
     /**
      * Отправка запроса на аутентификацию
      * @param commit
@@ -153,6 +214,32 @@ export default new Vuex.Store({
     },
 
     /**
+     * Отправка запроса на получение данных пользователя
+     * @param commit
+     * @param id - id сотрудника,чью карточку открываем
+     */
+    async getCurrentUserData({commit}){
+      try {
+        const req = await fetch(`http://test.atwinta.ru/api/v1/user`,{
+          method: 'GET',
+          mode: 'cors',
+          credentials: 'same-origin',
+          headers: {
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('token'),
+          },
+        });
+        const responseData = await req.json();
+        if (req.status === 200){
+          commit('SETCURRENTUSER', responseData);
+        }
+
+      } catch (e) {
+        console.log(e);
+      }
+    },
+
+    /**
      * Открытие страницы с карточкой сотрудника
      * @param commit
      * @param id - id сотрудника,чью карточку открываем
@@ -165,5 +252,6 @@ export default new Vuex.Store({
     WORKERSLIST: state => state.workers,
     USERPROFILE: state => state.chosenUserProfile,
     PAGES: state => state.pages,
+    CURRENTUSER: state => state.user,
   }
 })

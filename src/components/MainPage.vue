@@ -63,6 +63,7 @@ export default {
   display: flex;
   flex-wrap: wrap;
   width: 82%;
+  grid-gap: 20px;
   &-container{
     display: flex;
     justify-content: center;
@@ -72,8 +73,6 @@ export default {
 }
 
 .user-card{
-  margin-right: 20px;
-  margin-bottom: 20px;
   height: 600px;
   width: 500px;
   padding: 20px;
@@ -92,8 +91,10 @@ export default {
 .pagination{
   display: flex;
   justify-content: center;
+  align-items: center;
   user-select: none;
   cursor: pointer;
+  height: 40px;
   &-item{
     width: 24px;
     height: 24px;

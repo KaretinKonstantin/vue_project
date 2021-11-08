@@ -18,6 +18,11 @@ export default {
     layout(){
       return this.$route.meta.layout
     },
+  },
+  created() {
+    if (localStorage.getItem('token')){
+      this.$store.dispatch('getCurrentUserData');
+    }
   }
 }
 </script>

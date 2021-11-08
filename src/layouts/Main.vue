@@ -33,17 +33,29 @@ export default {
     justify-content: space-between;
     align-items: center;
     width: 75%;
+    height: 100%;
     font-size: 18px;
     font-weight: bold;
     &-item{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100px;
+      height: 100%;
       text-decoration: none;
       color: #fff;
+      box-sizing: border-box;
+      &:hover{
+        background: rgb(41, 41, 41);
+      }
     }
   }
 }
 
 .router-link-exact-active{
   color: gold;
-  border-bottom: 1px solid gold;
+  border-bottom: 2px solid gold;
+  background: rgb(41, 41, 41);
+  padding-bottom: 1px;
 }
 </style>
