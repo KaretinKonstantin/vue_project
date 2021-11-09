@@ -66,6 +66,7 @@ export default {
 
 <style scoped lang="scss">
 .profile{
+  margin-top: 20px;
   font-size: 16px;
 
   &-name{

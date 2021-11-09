@@ -4,8 +4,8 @@
       <div class="all-cards">
         <div class="user-card" v-for="(worker, workerIdx) in workersList" v-bind:key="workerIdx">
           <img :src="worker.image" alt="prof_picture">
-          <div>{{ worker.name }}</div>
-          <div class="user-card-profile" @click.stop="openProfile(worker.id)">Открыть профиль</div>
+          <div class="user-card-profile-name">{{ worker.name }}</div>
+          <span class="user-card-profile" @click.stop="openProfile(worker.id)">Открыть профиль</span>
         </div>
       </div>
     </div>
@@ -62,7 +62,8 @@ export default {
 .all-cards{
   display: flex;
   flex-wrap: wrap;
-  width: 82%;
+  width: 50%;
+  padding-top: 50px;
   grid-gap: 20px;
   &-container{
     display: flex;
@@ -73,15 +74,29 @@ export default {
 }
 
 .user-card{
-  height: 600px;
-  width: 500px;
+  display: flex;
+  flex-direction: column;
+  height: 400px;
+  width: 300px;
   padding: 20px;
-  background: #A9A9A9;
-  border: 1px solid white;
+  background: #E6E6E6;
   box-sizing: border-box;
+  color: #303133;
+  box-shadow: 8px 5px 5px #E6E6E6;
+  span{
+    margin-top: 24px;
+  }
   &-profile{
-    color: red;
+    color: #409eff;;
     cursor: pointer;
+    &-name{
+      text-align: left;
+      padding-top: 20px;
+      word-break: break-word;
+    }
+    &:hover{
+      color: #66b1ff;
+    }
   }
   img{
     width: 100%;

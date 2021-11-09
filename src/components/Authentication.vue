@@ -12,7 +12,7 @@
         <input type="password" v-model="password">
       </div>
     </div>
-    <input type="button" value="Авторизоваться" class="authentication-button" @click.stop="authenticate">
+    <input type="button" value="Войти" class="authentication-button" @click.stop="authenticate">
 
   </div>
 </template>
@@ -50,12 +50,13 @@ export default {
     border: 1px solid black;
     border-radius: 10px;
     &-button{
-      height: 32px;
+      height: 49px;
       width: 75%;
       color: white;
       margin-top: 50px;
-      background: greenyellow;
-      border: 1px solid black;
+      background: #66b1ff;
+      border: none;
+      border-radius: 4px;
       cursor: pointer;
     }
   }
